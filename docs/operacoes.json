@@ -1,0 +1,16 @@
+{
+  "recurso": "DimDim Web App",
+  "observacao": "Frontend Thymeleaf. Operacoes HTTP do CRUD. Nao e API pura.",
+  "contas": {
+    "GET": { "path": "/", "descricao": "Lista contas" },
+    "POST": { "path": "/contas", "body": { "nome": "Carteira", "tipo": "CARTEIRA", "saldo": 100.00 }, "descricao": "Cria conta" },
+    "PUT": { "path": "/contas/{id}", "metodoReal": "POST", "body": { "nome": "Carteira", "tipo": "CORRENTE", "saldo": 250.00 }, "descricao": "Atualiza conta" },
+    "DELETE": { "path": "/contas/{id}/excluir", "metodoReal": "POST", "descricao": "Exclui conta" }
+  },
+  "transacoes": {
+    "GET": { "path": "/contas/{contaId}/transacoes", "descricao": "Lista transacoes da conta" },
+    "POST": { "path": "/transacoes", "body": { "contaId": 1, "descricao": "Salario", "valor": 1500.00, "tipo": "ENTRADA" }, "descricao": "Cria transacao" },
+    "PUT": { "path": "/transacoes/{id}", "metodoReal": "POST", "body": { "contaId": 1, "descricao": "Salario", "valor": 1600.00, "tipo": "ENTRADA" }, "descricao": "Atualiza transacao" },
+    "DELETE": { "path": "/transacoes/{id}/excluir", "metodoReal": "POST", "body": { "contaId": 1 }, "descricao": "Exclui transacao" }
+  }
+}

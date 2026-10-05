@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DimDim</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 24px; background: #f6f7fb; color: #1c1c1c; }
+        h1 { margin-bottom: 4px; }
+        .muted { color: #666; margin-top: 0; }
+        .card { background: #fff; border: 1px solid #e4e6ef; border-radius: 8px; padding: 16px; margin: 16px 0; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #eee; }
+        input, select, button { padding: 8px; margin: 4px 4px 4px 0; }
+        button { background: #0b5fff; color: #fff; border: 0; border-radius: 4px; cursor: pointer; }
+        .danger { background: #c0392b; }
+        .ok { background: #e8f6ee; border: 1px solid #b7e0c2; padding: 8px; border-radius: 4px; }
+        a { color: #0b5fff; }
+    </style>
+</head>
+<body>
+    <h1>DimDim</h1>
+    <p class="muted">Contas e transacoes. App web na Azure com Azure SQL.</p>
+    <p th:if="${mensagem}" class="ok" th:text="${mensagem}"></p>
+
+    <div class="card">
+        <h2>Nova conta</h2>
+        <form method="post" action="/contas">
+            <input name="nome" placeholder="Nome" required>
+            <select name="tipo">
+                <option value="CORRENTE">Corrente</option>
+                <option value="POUPANCA">Poupanca</option>
+                <option value="CARTEIRA">Carteira</option>
+            </select>
+            <input name="saldo" type="number" step="0.01" value="0.00" required>
+            <button type="submit">Criar</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Contas</h2>
+        <table>
+            <thead>
+            <tr><th>Id</th><th>Nome</th><th>Tipo</th><th>Saldo</th><th></th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${contas}">
+                <td th:text="${c.id}"></td>
+                <td>
+                    <form th:action="@{|/contas/${c.id}|}" method="post">
+                        <input name="nome" th:value="${c.nome}" required>
+                        <select name="tipo">
+                            <option value="CORRENTE" th:selected="${c.tipo == 'CORRENTE'}">Corrente</option>
+                            <option value="POUPANCA" th:selected="${c.tipo == 'POUPANCA'}">Poupanca</option>
+                            <option value="CARTEIRA" th:selected="${c.tipo == 'CARTEIRA'}">Carteira</option>
+                        </select>
+                        <input name="saldo" type="number" step="0.01" th:value="${c.saldo}" required>
+                        <button type="submit">Salvar</button>
+                    </form>
+                </td>
+                <td th:text="${c.tipo}"></td>
+                <td th:text="${c.saldo}"></td>
+                <td>
+                    <a th:href="@{|/contas/${c.id}/transacoes|}">Transacoes</a>
+                    <form th:action="@{|/contas/${c.id}/excluir|}" method="post" style="display:inline">
+                        <button class="danger" type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${contas == null || contas.isEmpty()}">
+                <td colspan="5">Nenhuma conta ainda.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

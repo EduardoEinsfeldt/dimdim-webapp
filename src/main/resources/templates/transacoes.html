@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transacoes - DimDim</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 24px; background: #f6f7fb; color: #1c1c1c; }
+        .muted { color: #666; }
+        .card { background: #fff; border: 1px solid #e4e6ef; border-radius: 8px; padding: 16px; margin: 16px 0; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+        input, select, button { padding: 8px; margin: 4px 4px 4px 0; }
+        button { background: #0b5fff; color: #fff; border: 0; border-radius: 4px; cursor: pointer; }
+        .danger { background: #c0392b; }
+        .ok { background: #e8f6ee; border: 1px solid #b7e0c2; padding: 8px; border-radius: 4px; }
+        a { color: #0b5fff; }
+    </style>
+</head>
+<body>
+    <p><a href="/">Voltar para contas</a></p>
+    <h1>Transacoes</h1>
+    <p class="muted">Conta: <strong th:text="${conta.nome}"></strong> (#<span th:text="${conta.id}"></span>)</p>
+    <p th:if="${mensagem}" class="ok" th:text="${mensagem}"></p>
+
+    <div class="card">
+        <h2>Nova transacao</h2>
+        <form method="post" action="/transacoes">
+            <input type="hidden" name="contaId" th:value="${conta.id}">
+            <input name="descricao" placeholder="Descricao" required>
+            <input name="valor" type="number" step="0.01" required>
+            <select name="tipo">
+                <option value="ENTRADA">Entrada</option>
+                <option value="SAIDA">Saida</option>
+            </select>
+            <button type="submit">Criar</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Lancamentos</h2>
+        <table>
+            <thead>
+            <tr><th>Id</th><th>Editar</th><th>Data</th><th></th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="t : ${transacoes}">
+                <td th:text="${t.id}"></td>
+                <td>
+                    <form th:action="@{|/transacoes/${t.id}|}" method="post">
+                        <select name="contaId">
+                            <option th:each="c : ${contas}" th:value="${c.id}" th:text="${c.nome}" th:selected="${c.id == t.conta.id}"></option>
+                        </select>
+                        <input name="descricao" th:value="${t.descricao}" required>
+                        <input name="valor" type="number" step="0.01" th:value="${t.valor}" required>
+                        <select name="tipo">
+                            <option value="ENTRADA" th:selected="${t.tipo == 'ENTRADA'}">Entrada</option>
+                            <option value="SAIDA" th:selected="${t.tipo == 'SAIDA'}">Saida</option>
+                        </select>
+                        <button type="submit">Salvar</button>
+                    </form>
+                </td>
+                <td th:text="${t.dataTransacao}"></td>
+                <td>
+                    <form th:action="@{|/transacoes/${t.id}/excluir|}" method="post">
+                        <input type="hidden" name="contaId" th:value="${conta.id}">
+                        <button class="danger" type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${transacoes == null || transacoes.isEmpty()}">
+                <td colspan="4">Nenhuma transacao ainda.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
