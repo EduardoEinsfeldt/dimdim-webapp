@@ -3,7 +3,7 @@
 # A senha do SQL entra so como variavel de ambiente, nunca commitada.
 set -euo pipefail
 
-LOCATION="${LOCATION:-northcentralus}"
+LOCATION="${LOCATION:-eastus2}"
 RESOURCE_GROUP="${RESOURCE_GROUP:-rg-dimdim}"
 SQL_SERVER="${SQL_SERVER:-sql-dimdim-556460}"
 SQL_DB="${SQL_DB:-dimdim}"

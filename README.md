@@ -44,7 +44,7 @@ Usuario (navegador) -> Azure App Service Linux, Java 17 (Spring Boot + Thymeleaf
 
 ## Recursos usados
 
-Regiao de todos os recursos: `northcentralus` (North Central US).
+Regiao de todos os recursos: `eastus2` .
 
 | Recurso | Nome |
 | --- | --- |
@@ -68,7 +68,7 @@ java -version
 mvn -version
 az webapp list-runtimes --os linux | grep JAVA:17
 
-A assinatura precisa estar Enabled. Se houver mais de uma, selecione a de estudante com `az account set --subscription "NOME-DA-ASSINATURA"`. A policy Allowed resource deployment regions precisa incluir `northcentralus`.
+A assinatura precisa estar Enabled. Se houver mais de uma, selecione a de estudante com `az account set --subscription "NOME-DA-ASSINATURA"`. A policy Allowed resource deployment regions precisa incluir `eastus2`.
 
 ### 2. Subir o projeto
 
@@ -79,7 +79,7 @@ No Cloud Shell, envie o zip pelo icone de upload e descompacte. No PC: clone o r
 Nao edite o script para colocar a senha. A senha precisa ter 8 ou mais caracteres, maiuscula, minuscula, numero e simbolo, e nao pode conter `dimdimadmin`.
 
 export SQL_PASSWORD='TROQUE-POR-UMA-SENHA-FORTE'
-export LOCATION='northcentralus'
+export LOCATION='eastus2'
 export RESOURCE_GROUP='rg-dimdim'
 export SQL_SERVER='sql-dimdim-556460'
 export WEBAPP_NAME='app-dimdim-556460'
