@@ -46,15 +46,15 @@ Usuario (navegador) -> Azure App Service Linux, Java 17 (Spring Boot + Thymeleaf
 
 Regiao de todos os recursos: `eastus2` .
 
-| Recurso | Nome |
-| --- | --- |
-| Resource group | `rg-dimdim` |
-| Azure SQL Server | `sql-dimdim-556460` |
-| Azure SQL Database | `dimdim` |
-| Login SQL | `dimdimadmin` |
-| Plano App Service | `plan-dimdim` (Linux, B1) |
-| Web App | `app-dimdim-556460` (Java 17, Java SE) |
-| Application Insights | `ai-dimdim` |
+| Recurso | Nome                                          |
+| --- |-----------------------------------------------|
+| Resource group | `rg-dimdimwebapp`                             |
+| Azure SQL Server | `sql-dimdim-556460`                           |
+| Azure SQL Database | `dimdim`                                      |
+| Login SQL | `dimdimadmin`                                 |
+| Plano App Service | `plan-dimdim` (Linux, B1)                     |
+| Web App | `app-dimdim-556460` (Java 17, Java SE)        |
+| Application Insights | `ai-dimdim`                                   |
 | URL | `https://app-dimdim-556460.azurewebsites.net` |
 
 ## How to: implantacao na nuvem
@@ -80,7 +80,7 @@ Nao edite o script para colocar a senha. A senha precisa ter 8 ou mais caractere
 
 export SQL_PASSWORD='TROQUE-POR-UMA-SENHA-FORTE'
 export LOCATION='eastus2'
-export RESOURCE_GROUP='rg-dimdim'
+export RESOURCE_GROUP='rg-dimdimwebapp'
 export SQL_SERVER='sql-dimdim-556460'
 export WEBAPP_NAME='app-dimdim-556460'
 
@@ -98,7 +98,7 @@ No portal: SQL database `dimdim`, Query editor, login `dimdimadmin`. Cole e exec
 
 bash scripts/deploy-cli.sh
 
-O script roda `mvn clean package -DskipTests` e publica `target/dimdim.jar` com `az webapp deploy --resource-group rg-dimdim --name app-dimdim-556460 --src-path target/dimdim.jar --type jar`. A primeira subida do Java leva 1 a 2 minutos.
+O script roda `mvn clean package -DskipTests` e publica `target/dimdim.jar` com `az webapp deploy --resource-group rg-dimdimwebapp --name app-dimdim-556460 --src-path target/dimdim.jar --type jar`. A primeira subida do Java leva 1 a 2 minutos.
 
 Se abrir a pagina padrao da Azure, no App Service, Configuration, General settings, Startup Command: `java -jar /home/site/wwwroot/dimdim.jar`. Salve e reinicie.
 

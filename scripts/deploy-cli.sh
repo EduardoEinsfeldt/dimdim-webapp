@@ -3,7 +3,7 @@
 # Preencha as variaveis. Nao coloque senha neste arquivo.
 set -euo pipefail
 
-RESOURCE_GROUP="${RESOURCE_GROUP:-rg-dimdim}"
+RESOURCE_GROUP="${RESOURCE_GROUP:-rg-dimdimwebapp}"
 WEBAPP_NAME="${WEBAPP_NAME:-app-dimdim-556460}"
 JAR_PATH="${JAR_PATH:-target/dimdim.jar}"
 
