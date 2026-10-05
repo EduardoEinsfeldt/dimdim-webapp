@@ -6,7 +6,6 @@ Frontend em Thymeleaf (nao e API pura), persistencia em Azure SQL Database (PaaS
 
 Integrante: Eduardo Augusto Pelegrino Einsfeldt - RM 556460.
 
-Link do video: [COLE O LINK DO VIDEO AQUI]
 
 ## Descricao da solucao
 
